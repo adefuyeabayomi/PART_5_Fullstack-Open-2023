@@ -5,4 +5,12 @@ const getAll = () => {
   const request = axios.get(baseUrl)
   return request.then(response => response.data)
 }
-export default { getAll }
+
+const publish = (data,token) => {
+  return axios.post(baseUrl,data,{
+    headers : {
+      Authorization : token
+    }
+  })
+}
+export default { getAll, publish }

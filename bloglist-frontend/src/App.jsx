@@ -3,7 +3,18 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import userService from "./services/user"
 
+let formStyle = {
+  padding : 10,
+  borderRadius : 8,
+  border : "1px solid",
+  margin : 10
+}
 
+let buttonStyle = {
+  marginLeft : 10,
+  width : "20%",
+  minWidth : 100
+}
   const LoginForm = (props) => {
     let [usernameL,setUsernameL] = useState('')
     let [passwordL,setPasswordL] = useState('')
@@ -60,18 +71,7 @@ import userService from "./services/user"
       }
     }
   
-    let formStyle = {
-      padding : 10,
-      borderRadius : 8,
-      border : "1px solid",
-      margin : 10
-    }
-  
-    let buttonStyle = {
-      marginLeft : 10,
-      width : "20%",
-      minWidth : 100
-    }
+
   
     return (
         <div>
@@ -102,6 +102,10 @@ import userService from "./services/user"
 
   const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [title,setTitle] = useState('');
+  const [author,setAuthor] = useState('');
+  const [url,setUrl] = useState('')
+  
   const [userToken,setUserToken] = useState(window.localStorage.getItem("userToken"))
     useEffect(() => {
       blogService.getAll().then(blogs =>
@@ -109,7 +113,34 @@ import userService from "./services/user"
       )  
     }, [userToken])
 
-  console.log("usertoken", userToken)
+  const handleTitle = (e) => {
+    e.preventDefault();
+    setTitle(e.target.value)
+  }
+  const handleAuthor = (e) => {
+    e.preventDefault();
+    setAuthor(e.target.value)
+    
+  }
+  const handleUrl = (e) => {
+    e.preventDefault();
+    setUrl(e.target.value)
+  }
+  const publishBlog = async () => {
+    let blogData = {
+      url , title , author , likes : 0
+    }
+    console.log("user token", userToken)
+    let published = await blogService.publish(blogData,userToken);
+    console.log("published",)
+    if(published.status === 201){
+      alert("successfully published post");
+      setTitle('');
+      setAuthor('');
+      setUrl('');
+      setBlogs(blogs.concat(blogData))
+    }
+  }
 
   if(userToken !== null){
     return (
@@ -117,9 +148,12 @@ import userService from "./services/user"
         <div>
           <h3>Create a new blog post</h3>
           <div>
-            <form>
-              <p></p>
+            <form style={formStyle}>
+              <p>Title : <input value={title} onChange={handleTitle}/> </p>
+              <p>Author : <input value={author} onChange={handleAuthor}/> </p>
+              <p>Url : <input value={url} onChange={handleUrl}/> </p>
             </form>
+            <button style={buttonStyle} onClick={publishBlog}>Publish new blog post</button>
           </div>
         </div>
         <h2>blogs</h2>
@@ -132,7 +166,6 @@ import userService from "./services/user"
   }
   else return (
     <div>
-      
       <LoginForm setUserToken={setUserToken}/>
     </div>
   )
