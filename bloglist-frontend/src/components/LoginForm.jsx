@@ -1,5 +1,6 @@
 import userService from "../services/user";
 import { useState } from "react";
+import Notification from "../components/Notification"
 
 let formStyle = {
     padding : 10,
@@ -19,6 +20,9 @@ const LoginForm = (props) => {
     let [passwordL,setPasswordL] = useState('')
     let [usernameS,setUsernameS] = useState('')
     let [passwordS,setPasswordS] = useState('')
+    const [showNotification,setShowNotification] = useState(false)
+    const [notificationText,setNotificationText] = useState('')
+    const [notifType,setNotifType] = useState('')
   
     const handleUsernameChangeL =  (e) => {
         e.preventDefault();
@@ -60,12 +64,32 @@ const LoginForm = (props) => {
       }
       console.log("signupdata", signUpData);
       if(usernameS.length < 3 || passwordS.length < 8){
-        return alert("To sign up, supply a username more than 3 characters and a password more than 8 characters long. Please try again.")
+        setNotificationText("To sign up, supply a username more than 3 characters and a password more than 8 characters long. Please try again.");
+        setNotifType("error");
+        setShowNotification(true);
+        setTimeout(()=>{
+        setShowNotification(false);
+        }, 5000)
       }
       else {
         let data = await userService.signUp(signUpData)
         console.log("response data", data)
-        data.status === 201 ? alert("Account Created Successfully, Now Proceed to login to create read and create blog posts") : alert("unable to create account. We are working to fix the issue")
+        if(data.status === 201){
+            setNotificationText("account created successfully");
+            setNotifType("success");
+            setShowNotification(true);
+            setTimeout(()=>{
+            setShowNotification(false);
+            }, 5000)
+        }
+        else {
+            setNotificationText("Unable to create account, we are working to fix the issue, thanks for understanding");
+            setNotifType("error");
+            setShowNotification(true);
+            setTimeout(()=>{
+            setShowNotification(false);
+            }, 5000)
+        }
         return "Account Created Successfully"
       }
     }
@@ -74,6 +98,7 @@ const LoginForm = (props) => {
   
     return (
         <div>
+            <Notification  type={notifType} text={notificationText} showNotification={showNotification} />
             <h1>Login</h1>
             <form style={formStyle}>
                 <div>
