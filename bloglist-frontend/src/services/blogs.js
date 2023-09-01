@@ -20,4 +20,13 @@ const like = (id,data,token) => {
     }
   })
 }
-export default { getAll, publish, like}
+
+const deleteBlog = (id,token) => {
+  return axios.delete(baseUrl+'/'+id,{
+    headers : {
+      Authorization : token
+    }
+  })
+}
+
+export default { getAll, publish, like, deleteBlog}

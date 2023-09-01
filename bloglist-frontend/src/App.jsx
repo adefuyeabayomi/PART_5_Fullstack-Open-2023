@@ -21,6 +21,7 @@ let bodyStyle= styles.bodyStyle;
 
   const [userToken,setUserToken] = useState(window.localStorage.getItem("userToken"))
 
+
   useEffect(() => {
     blogService.getAll().then(blogs =>{
       function compare (a,b) { return a.likes > b.likes ? -1 : 1 } 
@@ -30,6 +31,14 @@ let bodyStyle= styles.bodyStyle;
     }
     )  
   }, [userToken])
+
+  const removePost = (id) => {
+    let newBlogsArray = [];
+    blogs.forEach( x => {
+      x.id !== id ? newBlogsArray.push(x) : ""
+    })
+    setBlogs(newBlogsArray)
+  }
 
   const publishBlog = async (blogData) => {
    let {title,author} = blogData;
@@ -77,7 +86,7 @@ let bodyStyle= styles.bodyStyle;
         <h2>blogs</h2>
         <p>{window.localStorage.getItem("username")} is logged in <button onClick={logOut} >Logout</button></p>
         {blogs.map((blog,i) =>
-          <Blog key={i} blog={blog} />
+          <Blog removePost={removePost} key={blog.id} blog={blog} />
         )}
       </div>
     )

@@ -44,6 +44,7 @@ const LoginForm = (props) => {
         console.log("data.data",data.data)
         window.localStorage.setItem("userToken",data.data.token)
         window.localStorage.setItem("username",usernameL)
+        window.localStorage.setItem("userID",data.data.id)
         props.setUserToken(data.data.token)
       }
     }

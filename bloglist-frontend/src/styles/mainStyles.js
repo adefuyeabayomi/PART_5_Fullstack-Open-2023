@@ -44,6 +44,12 @@ let bodyStyle = {
     fontFamily : "segoe ui,open sans,arial,sans-serif"
 }
 
-let styles = {notificationStyleError,notificationStyleSuccess,blogStyle,formStyle,buttonStyle,bodyStyle}
+let deleteStyle = {
+    backgroundColor : 'pink',
+    borderRadius : 5,
+    padding : "4px 25px"
+}
+
+let styles = {notificationStyleError,notificationStyleSuccess,blogStyle,formStyle,buttonStyle,bodyStyle, deleteStyle}
 
 export default styles
