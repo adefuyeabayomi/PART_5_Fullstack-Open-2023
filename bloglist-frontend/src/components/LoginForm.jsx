@@ -1,19 +1,10 @@
 import userService from "../services/user";
 import { useState } from "react";
 import Notification from "../components/Notification"
+import styles from "../styles/mainStyles"
 
-let formStyle = {
-    padding : 10,
-    borderRadius : 8,
-    border : "1px solid",
-    margin : 10
-  }
-  
-  let buttonStyle = {
-    marginLeft : 10,
-    width : "20%",
-    minWidth : 100
-  }
+let buttonStyle = styles.buttonStyle;
+let formStyle = styles.formStyle;
 
 const LoginForm = (props) => {
     let [usernameL,setUsernameL] = useState('')

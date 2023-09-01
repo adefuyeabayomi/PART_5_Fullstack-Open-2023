@@ -1,6 +1,9 @@
+import styles from "../styles/mainStyles"
+
 const Blog = ({ blog }) => (
-  <div>
-    <strong>{blog.title} </strong> <i>Written by </i>{blog.author}
+  <div style={styles.blogStyle}>
+    <h3>Title : {blog.title} </h3>
+    <p><i>by </i>{ blog.author }. Find it here <a href={ blog.url }>Link</a></p>
   </div>  
 )
 
