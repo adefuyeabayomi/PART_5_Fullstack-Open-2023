@@ -13,4 +13,11 @@ const publish = (data,token) => {
     }
   })
 }
-export default { getAll, publish }
+const like = (id,data,token) => {
+  return axios.put(baseUrl+'/'+id, data, {
+    headers : {
+      Authorization : token
+    }
+  })
+}
+export default { getAll, publish, like}

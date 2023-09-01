@@ -33,6 +33,8 @@ let bodyStyle= styles.bodyStyle;
       let published = await blogService.publish(blogData,userToken);
       console.log("published",published)
       if(published.status === 201){
+        blogData.id = published.data.id
+        console.log("blogdata",blogData)
         setNotificationText('A new blog! ' + title + " posted by " + author );
         setNotifType("success");
         setShowNotification(true);
