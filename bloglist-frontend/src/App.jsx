@@ -22,8 +22,12 @@ let bodyStyle= styles.bodyStyle;
   const [userToken,setUserToken] = useState(window.localStorage.getItem("userToken"))
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
+    blogService.getAll().then(blogs =>{
+      function compare (a,b) { return a.likes > b.likes ? -1 : 1 } 
+      blogs = blogs.sort(compare)
+      console.log("blogs sorted", blogs)
       setBlogs( blogs )
+    }
     )  
   }, [userToken])
 
