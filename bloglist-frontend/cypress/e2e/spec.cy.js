@@ -59,23 +59,24 @@ describe('Blog App', function() {
         cy.get("#loginButton").click();
         // this means the login was successful the below is the button that controls the blog post form.
         cy.contains("create new blog").click();
-      })
-      it("Logged in user can create new blog post", function (){
         cy.get("#title").type("My awesome title")
         cy.get("#author").type("McDonalds")
         cy.get("#url").type("http://mcdonalds.com/mytitle")
         cy.get("#publishBlog").click()
+      })
+      it("Logged in user can create new blog post", function (){
         cy.contains("Author McDonalds")
       })
       it("Logged in user can like a blog post", function (){
-        cy.get("#title").type("My awesome title")
-        cy.get("#author").type("McDonalds")
-        cy.get("#url").type("http://mcdonalds.com/mytitle")
-        cy.get("#publishBlog").click()
         cy.contains("Author McDonalds").parent().find("button").click();
         cy.contains("Author McDonalds").parent().find("button").eq(1).click().then(x=>{
           cy.contains("Author McDonalds").parent().find("p").eq(2).contains(1)
         });
+      })
+      it("The user who created the blog can delete the blog post", function () {
+        cy.contains("Author McDonalds").parent().find("button").click();
+        cy.contains("Author McDonalds").parent().find("button").eq(2).click()
+        
       })
     })
 
