@@ -41,12 +41,42 @@ describe('Blog App', function() {
       it("login with wrong credentials should fail",function () {
         cy.get("#loginUsername").type(wrongLogin.username)
         cy.get("#loginPassword").type(wrongLogin.password)
-        cy.get("#loginButton").click();
+        try {
+          cy.get("#loginButton").click();
+        }
+        catch(error){
+          console.log("An error occured", error)
+        }
         // this means that the login was unsuccessful
         cy.contains("Sign Up For New Users");
       })
     })
 
-    describe("")
+    describe("Blog Posts Functionalities", function (){
+      beforeEach(function (){
+        cy.get("#loginUsername").type(loginDetails.username)
+        cy.get("#loginPassword").type(loginDetails.password)
+        cy.get("#loginButton").click();
+        // this means the login was successful the below is the button that controls the blog post form.
+        cy.contains("create new blog").click();
+      })
+      it("Logged in user can create new blog post", function (){
+        cy.get("#title").type("My awesome title")
+        cy.get("#author").type("McDonalds")
+        cy.get("#url").type("http://mcdonalds.com/mytitle")
+        cy.get("#publishBlog").click()
+        cy.contains("Author McDonalds")
+      })
+      it("Logged in user can like a blog post", function (){
+        cy.get("#title").type("My awesome title")
+        cy.get("#author").type("McDonalds")
+        cy.get("#url").type("http://mcdonalds.com/mytitle")
+        cy.get("#publishBlog").click()
+        cy.contains("Author McDonalds").parent().find("button").click();
+        cy.contains("Author McDonalds").parent().find("button").eq(1).click().then(x=>{
+          cy.contains("Author McDonalds").parent().find("p").eq(2).contains(1)
+        });
+      })
+    })
 
 })
