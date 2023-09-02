@@ -31,8 +31,7 @@ test('Testing to make sure the Blog component gets rendered',async () => {
     const showButton = container.querySelector(".showButton");
     await user.click(showButton);
     console.log("mock calls",mockHandler.mock);
-    screen.debug();
-    //expect(mockHandler.mock.calls).toHaveLength(1)
+    expect(mockHandler).toHaveBeenCalledTimes(1)
     const url = container.querySelector(".url");
     const likes = container.querySelector(".likes")
     expect(author).toBeDefined();
