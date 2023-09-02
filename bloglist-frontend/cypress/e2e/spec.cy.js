@@ -31,11 +31,11 @@ describe('Blog App', function() {
 
       // test for logging in with the right credentials and the wrong credentials.
     describe("Login Functionality", function () {
-      it("login with correct credentials should succeed", function () {
+      it("login with correct credentials should succeed and user can create new blog", function () {
         cy.get("#loginUsername").type(loginDetails.username)
         cy.get("#loginPassword").type(loginDetails.password)
         cy.get("#loginButton").click();
-        // this means the login was successful
+        // this means the login was successful the below is the button that controls the blog post form.
         cy.contains("create new blog");
       })
       it("login with wrong credentials should fail",function () {
@@ -46,5 +46,7 @@ describe('Blog App', function() {
         cy.contains("Sign Up For New Users");
       })
     })
+
+    describe("")
 
 })
