@@ -4,7 +4,8 @@ import { render, screen } from '@testing-library/react'
 import Blog from "./Blog"
 import userEvent from "@testing-library/user-event"
 
-test('Testing to make sure the Blog component gets rendered', () => {
+test('Testing to make sure the Blog component gets rendered',async () => {
+    const mockHandler = jest.fn()
     let blog = 
     {
       "title": "Olekzander Zinchenko",
@@ -20,13 +21,23 @@ test('Testing to make sure the Blog component gets rendered', () => {
     const removePost = (id) => {
         console.log("post removed ", id)
     }
+    let user = userEvent.setup();
     const { container } = render(<Blog blog={blog} removePost={removePost}/>)
     //renders the blog's title and author, but does not render its URL or number of likes by default.
     //Add CSS classes to the component to help the testing as necessary
     const author = container.querySelector(".author");
     const title = container.querySelector(".title");
     const element = screen.findByText('Olekzander',{exact : false})
+    const showButton = container.querySelector(".showButton");
+    await user.click(showButton);
+    console.log("mock calls",mockHandler.mock);
+    screen.debug();
+    //expect(mockHandler.mock.calls).toHaveLength(1)
+    const url = container.querySelector(".url");
+    const likes = container.querySelector(".likes")
     expect(author).toBeDefined();
     expect(title).toBeDefined();
+    expect(url).not.toBeFalsy();
+    expect(likes).not.toBeFalsy();
     expect(element).toBeDefined();
   })

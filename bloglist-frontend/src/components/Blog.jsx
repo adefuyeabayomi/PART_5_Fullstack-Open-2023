@@ -31,11 +31,11 @@ const Blog = ({ blog, removePost }) => {
   let deleteButton = userID === blog.user.id ? <button style={styles.deleteStyle} onClick={deleteBlog} >Remove</button> : ""
 
   let currentButton = <button></button>
-  currentButton = showDetails? <button onClick={updateDetailsVisibility}>Hide</button> : <button onClick={updateDetailsVisibility}>Show</button>
+  currentButton = showDetails? <button onClick={updateDetailsVisibility}>Hide</button> : <button className="showButton" onClick={updateDetailsVisibility}>Show</button>
   let details = <p></p>;
   details = showDetails ? (<div>
-    <p>Link : <a href={ blog.url }> {blog.url} </a></p>
-    <p>Likes : {likes} <button onClick={like} >Like</button></p>
+    <p className="url">Link : <a href={ blog.url }> {blog.url} </a></p>
+    <p className="likes">Likes : {likes} <button onClick={like} >Like</button></p>
     {deleteButton}
   </div>) : <div></div>
 
