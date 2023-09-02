@@ -39,11 +39,11 @@ const CreateBlog = ({publishBlog}) => {
             <h3>Create a new blog post</h3>
             <div>
             <form style={formStyle}>
-                <p>Title : <input value={title} onChange={handleTitle}/> </p>
-                <p>Author : <input value={author} onChange={handleAuthor}/> </p>
-                <p>Url : <input value={url} onChange={handleUrl}/> </p>
+                <p>Title : <input id='title' value={title} onChange={handleTitle}/> </p>
+                <p>Author : <input id='author' value={author} onChange={handleAuthor}/> </p>
+                <p>Url : <input id='url' value={url} onChange={handleUrl}/> </p>
             </form>
-            <button style={buttonStyle} onClick={add}>Publish new blog post</button>
+            <button style={buttonStyle} id='publishBlog' onClick={add}>Publish new blog post</button>
             </div>
         </div>
     )

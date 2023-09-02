@@ -47,6 +47,9 @@ let bodyStyle= styles.bodyStyle;
       console.log("published",published)
       if(published.status === 201){
         blogData.id = published.data.id
+        blogData.user={
+          id : window.localStorage.getItem("userID")
+        } 
         console.log("blogdata",blogData)
         setNotificationText('A new blog! ' + title + " posted by " + author );
         setNotifType("success");

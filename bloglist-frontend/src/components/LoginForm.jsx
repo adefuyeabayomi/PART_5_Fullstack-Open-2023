@@ -92,26 +92,26 @@ const LoginForm = (props) => {
         <div>
             <Notification  type={notifType} text={notificationText} showNotification={showNotification} />
             <h1>Login</h1>
-            <form style={formStyle}>
+            <form id="loginForm" style={formStyle}>
                 <div>
-                    <p>Username : <input type="text" name="username" onChange={handleUsernameChangeL} value={usernameL} /></p>
+                    <p>Username : <input id="loginUsername" type="text" name="username" onChange={handleUsernameChangeL} value={usernameL} /></p>
                 </div>
                 <div>
-                    <p>Password : <input type="text" name="username" onChange={handlePasswordChangeL} value={passwordL} /></p>
+                    <p>Password : <input id="loginPassword" type="text" name="username" onChange={handlePasswordChangeL} value={passwordL} /></p>
                 </div>
             </form>
-            <button style={buttonStyle} onClick={login}>Login</button>
+            <button style={buttonStyle} id="loginButton" onClick={login}>Login</button>
   
             <h1>Sign Up For New Users</h1>
-            <form style={formStyle}>
+            <form id="signupForm" style={formStyle}>
                 <div>
-                    <p>Username : <input type="text" name="username" onChange={handleUsernameChangeS} value={usernameS} /></p>
+                    <p>Username : <input type="text" id="signupUsername" name="username" onChange={handleUsernameChangeS} value={usernameS} /></p>
                 </div>
                 <div>
-                    <p>Password : <input type="text" name="username" onChange={handlePasswordChangeS} value={passwordS} /></p>
+                    <p>Password : <input type="text" id="signupPassword" name="username" onChange={handlePasswordChangeS} value={passwordS} /></p>
                 </div>
             </form>
-            <button style={buttonStyle} onClick={signUp}>Sign Up</button>
+            <button style={buttonStyle} id="signupButton" onClick={signUp}>Sign Up</button>
         </div>
     )
   }
