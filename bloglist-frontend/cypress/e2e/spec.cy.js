@@ -5,6 +5,11 @@ describe('Blog App', function() {
     password : "12345678"
   }
 
+  let secondUser = {
+    username : "Robert Baratheon",
+    password : "12345678"
+  }
+
   let wrongLogin = {
     username : "Aimee Leeroy",
     password : "856845353555"
@@ -16,8 +21,9 @@ describe('Blog App', function() {
         console.log("formatted database", response)
       })
 
-      // creates a new user
+      // creates new users
       cy.request("POST","http://localhost:3003/api/users",loginDetails)
+      cy.request("POST","http://localhost:3003/api/users",secondUser)
 
       // opens the application in the browsers
       cy.visit('http://localhost:5173')
@@ -76,8 +82,21 @@ describe('Blog App', function() {
       it("The user who created the blog can delete the blog post", function () {
         cy.contains("Author McDonalds").parent().find("button").click();
         cy.contains("Author McDonalds").parent().find("button").eq(2).click()
-        
       })
-    })
 
+      describe("Login another user to this current environment", function () {
+
+        it("logs in another user", function (){
+          cy.contains("Logout").click();
+          cy.get("#loginUsername").type(secondUser.username)
+          cy.get("#loginPassword").type(secondUser.password)
+          cy.get("#loginButton").click();
+          cy.contains("Author McDonalds").parent().find("button").click();
+          // this test will fail because the delete button is the third on the list and since cypress does not find it, given it is a new user, the error will occur
+          cy.contains("Author McDonalds").parent().find("button").eq(2)
+        })
+
+      })
+
+    })
 })
